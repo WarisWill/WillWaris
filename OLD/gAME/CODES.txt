@@ -1,0 +1,373 @@
+int x = 134; // Define x location for Blinky
+int y = 72; // Define y location for Blinky
+int look = 0; // Define location for eyes
+int u; //use u & v to set location of pupils
+int v;//use u & v to set location of pupils
+int temp;    
+int rPos = 255;
+int gPos = 255;
+int bPos = 0;
+ 
+void setup()
+{
+  size (400, 400); // Define Canvas size
+  noStroke(); // No lines
+  smooth(); // Set to smooth for a good look
+}
+ 
+void draw () {
+  background(0);
+  pacman(0, 20, color(rPos, gPos, bPos)); // Upper left pacman Yellow
+  pacman(200, 20, color(0, 0, 255)); // Upper right pacman Blue
+  pacman(0, 200, color(255, 0, 255)); // Bottom left pacman Pink
+  pacman(200, 200, color(255, 0, 0)); // Bottom right pacman Red
+}
+ 
+ 
+ 
+void pacman (int x, int y, color z)
+{
+  //This is the body
+  fill (z); // fill color specified in void draw
+  rect(50+x, 70+y, 10, 90);
+  rect(60+x, 40+y, 10, 130);
+  rect(70+x, 30+y, 10, 140);
+  rect(80+x, 20+y, 10, 140);
+  rect(90+x, 20+y, 10, 130);
+  rect(100+x, 10+y, 10, 150);
+  rect(110+x, 10+y, 10, 160);
+  rect(120+x, 10+y, 10, 160);
+  rect(130+x, 10+y, 10, 150);
+  rect(140+x, 20+y, 10, 130);
+  rect(150+x, 20+y, 10, 140);
+  rect(160+x, 30+y, 10, 140);
+  rect(170+x, 40+y, 10, 130);
+  rect(180+x, 70+y, 10, 90);
+  eyes (0, 20);
+  eyes (200, 20);
+  eyes (0, 200);
+  eyes(200, 200);
+  pupils(0, 15);
+  pupils(200, 15);
+  pupils(0, 195);
+  pupils(200, 195);
+}
+ 
+void eyes (int x, int y) {
+  //left eye 
+  fill(255);
+  rect(60+look*10+x, 50+y, 10, 30);
+  rect(70+look*10+x, 40+y, 10, 50);
+  rect(80+look*10+x, 40+y, 10, 50);
+  rect(90+look*10+x, 50+y, 10, 30);
+  //right eye
+  rect(120+look*10+x, 50+y, 10, 30);
+  rect(130+look*10+x, 40+y, 10, 50);
+  rect(140+look*10+x, 40+y, 10, 50);
+  rect(150+look*10+x, 50+y, 10, 30);
+  /* I used two eyes instead of one because using the variable u to represent x was confusing
+   this way it sets the eyes to whatever position I have previously stated in the function pacman
+   */
+}
+void pupils (int u, int v) {
+  //Pupils 
+  fill(0, 0, 255);
+  rect(60+look*20+u, 60+v, 20, 20);
+  rect(120+look*20+u, 60+v, 20, 20);
+  /*
+  By using the pupils with variables u and v it allows me to easily set their x and y coordinates
+   rather than doing confusing multiplication by searching for other variables such as 
+   lr ud lrb udb etc which equal different variables and are confusing
+   */
+}
+void mousePressed () {
+  if (look ==0) {
+      for (int i=0; i<=2; i++);
+      look ++;
+  } else {
+    look = 0;
+  }
+ 
+  if (mousePressed) {
+    int temp; 
+    temp = bPos; //save bPos value 
+    bPos = gPos; //make bPos be gPos 
+    gPos = rPos; //make gPos be rPos 
+    rPos = temp; //make rPos be original bPos
+  }
+ }
+
+
+
+----------------------------------------------------------------
+----------------------------------------------------------------
+
+int look = 2;
+
+void setup(){
+  size(200,200);
+  noStroke();
+  
+ 
+}
+
+void draw(){
+  fill(255,0,0);
+  rect(50,70,10,90); // from left, bar 1
+  rect(60,40,10,130); // from left, bar 2
+  rect(70,30,10,140); // from left, bar 3
+  rect(80,20,10,140); // from left, bar 4
+  rect(90,20,10,130); // from left, bar 5
+  rect(100,10,10,150); // from left, bar 6
+  rect(110,10,10,160); // from left, bar 7
+  rect(120,10,10,160); // from left, bar 8
+  rect(130,10,10,150); // from left, bar 9
+  rect(140,20,10,130); // from left, bar 10
+  rect(150,20,10,140); // from left, bar 11
+  rect(160,30,10,140); // from left, bar 12
+  rect(170,40,10,130); // from left, bar 13
+  rect(180,70,10,90); // from left, bar 14
+      
+  // eyes
+  fill(255,255,255);
+  rect(60+look*10,50,10,30);
+  rect(70+look*10,40,10,50);
+  rect(80+look*10,40,10,50);
+  rect(90+look*10,50,10,30);
+  
+  rect(120+look*10,50,10,30);
+  rect(130+look*10,40,10,50);
+  rect(140+look*10,40,10,50);
+  rect(150+look*10,50,10,30);
+  
+  fill(0,0,255);
+  rect(60+look*20,60,20,20); // left pupil
+  rect(120+look*20,60,20,20); // right pupil
+}
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+int [] data = new int[9];
+int selected = 1;
+
+void setup(){
+  size(300,400);
+}
+
+void draw(){
+  background(255);
+  // Draw the tiles.
+  for(int i=0; i<3; i++){
+    for(int j=0; j<3; j++){
+      drawTile(i,j);
+    }
+  }
+
+  // Draw the buttons.
+  stroke(0);
+  
+  fill(200,255,200);
+  if( selected == 1){
+    fill(100,255,100);
+  }
+  rect(20, 295, 80, 80 );
+  
+  fill(200,255,200);
+  if( selected == 2){
+    fill(100,255,100);
+  }
+  rect(110, 295, 80, 80 );
+  
+  fill(200,255,200);
+  if( selected == 0){
+    fill(100,255,100);
+  }
+  rect(200, 295, 80, 80 );
+  
+  noStroke();
+  fill(255,0,0);
+  ellipse(150,335, 60, 60 );
+  fill(200,255,200);
+  if( selected == 2){
+    fill(100,255,100);
+  }
+  ellipse(150,335, 40, 40 );
+
+  noStroke();
+  fill(0,0,255);
+  pushMatrix();
+  translate(60, 335);
+  rotate(HALF_PI/2.0);
+  rect(-10,-30,20,60);
+  rect(-30,-10,60,20);
+  popMatrix();
+
+  // Update tiles.
+  if(mousePressed){
+    if( mouseX > 30 && mouseX < 270 && mouseY > 30 && mouseY < 270 ){
+      int tempi = (mouseX-30)/80;
+      int tempj = (mouseY-30)/80;
+      data[tempi+3*tempj] = selected;
+    }
+  }
+}
+
+void mouseClicked(){
+  if( mouseX > 20 && mouseX < 100 && mouseY > 295 && mouseY < 375 ){
+    selected = 1;
+  }
+  if( mouseX > 110 && mouseX < 190 && mouseY > 295 && mouseY < 375 ){
+    selected = 2;
+  }
+  if( mouseX > 200 && mouseX < 280 && mouseY > 295 && mouseY < 375 ){
+    selected = 0;
+  }
+}
+
+
+
+void drawTile(int i, int j){
+  drawBlank(i,j);
+  if( data[i+3*j] == 1 ){
+    drawCross(i,j);
+  }
+  if( data[i+3*j] == 2 ){
+    drawCircle(i,j);
+  }
+}
+
+
+void drawBlank(int i, int j){
+  stroke(0);
+  fill(200,255,200);
+  rect(30+80*i,30+80*j,80,80);
+}
+
+void drawCross(int i, int j){
+  noStroke();
+  fill(0,0,255);
+  pushMatrix();
+  translate(70+80*i, 70+80*j);
+  rotate(HALF_PI/2.0);
+  rect(-10,-30,20,60);
+  rect(-30,-10,60,20);
+  popMatrix();
+}
+
+void drawCircle(int i, int j){
+  noStroke();
+  fill(255,0,0);
+  ellipse(70+80*i,70+80*j, 60, 60 );
+  fill(200,255,200);
+  ellipse(70+80*i,70+80*j, 40, 40 );
+}
+-------------------------------------------------------------------------------
+----------------------------------------------------------------------
+int shipXPos;
+PImage galaga;
+int stars = 200;
+int[] starSpeed = new int [stars];
+int[] x = new int [stars];
+int[] y = new int [stars];
+ 
+void setup() {
+  size (224, 288);
+  galaga = loadImage("galaga.png");
+  image(galaga, (width/2)-8, 250);
+  shipXPos = (width/2)-8;
+ 
+  for (int i = 0; i < stars; i++) {
+    x[i] = int(random(0, 224));
+    y[i] = int(random(0, 280));
+    starSpeed[i] = int(random(1, 5));
+  }
+}
+void draw() {
+  background(0);
+  rectMode(CENTER);
+ 
+  for (int i=0; i<stars; i++) {
+    fill(255);
+    rect(x[i], y[i], 2, 2);
+  }
+ 
+  for (int i=0;i<stars;i++) {
+    y[i]+= starSpeed[i];
+    if (y[i] > height) {
+      y[i] = 0;
+    }
+    image(galaga, shipXPos, 250);
+    text("p r e s s    l e f t    o r    r i g h t", 30, 30);
+    text("t o    m o v e    t h e    s h i p", 40, 45);
+  }
+  if (shipXPos == 200) {
+    shipXPos-=1;
+  }
+  if (shipXPos == 10) {
+    shipXPos+=1;
+  }
+  if (key == CODED) {
+    if (keyPressed == true) {
+      if (keyCode == RIGHT) {
+        shipXPos+=1;
+      }
+      else {
+        if (keyCode == LEFT) {
+          shipXPos-=1;
+        }
+        else {
+          shipXPos=shipXPos;
+        }
+      }
+    }
+  }
+}
+=========================================================================================
+int y=1;
+
+void setup() {
+  size(800, 800);
+}
+
+void draw() {
+  line(0, y, 800, y);
+  y=y+2;
+}
+---------------------------------------------------
+---------------------------------------------
+int y=0;
+int x=1;
+
+void setup() {
+  size(800, 800);
+}
+
+void draw() {
+  line(0, y, 800, x);
+  y=y+2;
+}
+-----------------------------------------------------------
+-----------------------
+int[] y;
+
+void setup() {
+  size(900, 900);
+  y = new int[width];
+}
+
+void draw() {
+  background(500); // Read the array from the end to the
+  // beginning to avoid overwriting the data
+  for (int i = y.length-1; i > 0; i--) {
+    y[i] = y[i-1];
+  }
+  // Add new values to the beginning
+  y[0] = mouseY;
+  // Display each pair of values as a line
+  for (int i = 1; i < y.length; i++) {
+    line(i, y[i], i-1, y[i-1]);
+  }
+}
+----------------------------------------
+-------------------------------------
+http://www.openprocessing.org/collection/25 
+
